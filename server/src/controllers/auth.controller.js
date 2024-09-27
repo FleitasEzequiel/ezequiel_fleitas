@@ -6,7 +6,7 @@ export const signInCtrl = async (req, res) => {
     const { email, password } = req.body;
 
     const user = await getUserByCredentials(email, password);
-
+    console.log(user);
     if (!user) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
@@ -22,8 +22,15 @@ export const signInCtrl = async (req, res) => {
 };
 
 export const signUpCtrl = async (req, res) => {
+  const { email, password, username } = req.body;
+  const user = {
+    email,
+    password,
+    username,
+  };
   try {
-    // ! Completar la función signUpCtrl
+    const newUser = await createUser(user);
+    res.status(201).json({ message: "User Created :" + newUser });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
