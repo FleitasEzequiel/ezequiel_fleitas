@@ -12,7 +12,6 @@ import { services } from "./components/services";
 
 // Obtener el elemento raíz del DOM donde se montarán los componentes
 const $root = document.getElementById("root");
-
 // Realizar una solicitud para obtener la sesión del usuario actual
 const token = localStorage.getItem("token");
 fetch("http://localhost:4321/auth/me", {

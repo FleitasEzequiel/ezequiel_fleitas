@@ -184,7 +184,12 @@ export function navbar(session = null) {
     logoutButton.textContent = "Logout";
 
     logoutButton.addEventListener("click", () => {
-      // ! HACER EL LOGOUT DEL USUARIO Y REDIRIGIR A LA PÁGINA DE LOGIN
+      try {
+        localStorage.removeItem("token");
+        window.location.href = "./pages/login.html";
+      } catch (error) {
+        alert(error);
+      }
     });
 
     menuDiv.appendChild(logoutButton);

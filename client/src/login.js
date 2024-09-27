@@ -23,14 +23,12 @@ $form.addEventListener("submit", async (e) => {
       },
       body: JSON.stringify(entries),
     }).then((response) => {
-      console.log(response);
       if (response.ok == true) {
         setTimeout(() => {
           response.json().then((json) => {
-            console.log(json);
             localStorage.setItem("token", json.token);
           });
-          // window.location.href = "/";
+          window.location.href = "/";
         }, 200);
       } else {
         response.json().then((json) => {

@@ -32,18 +32,9 @@ export const signUpCtrl = async (req, res) => {
   }
 };
 
-export const signOutCtrl = (_req, res) => {
-  try {
-    // ! Completar la función signOutCtrl
-    res.status(200).json({ message: "Sign out success" });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+//No session
 
 export const getMeCtrl = (req, res) => {
-  console.log("llegó");
-  console.log(req.cookies);
   try {
     res.status(200).json(req.user);
   } catch (error) {
