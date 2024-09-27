@@ -15,17 +15,26 @@ $form.addEventListener("submit", async (e) => {
   const entries = Object.fromEntries(formData.entries());
 
   // Realizar una solicitud POST a la API de inicio de sesión
-  fetch("http://localhost:4321/auth/sign-in", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(entries),
-  }).then((response) => {
-    if (response.ok) {
-      // ! REDIRIGIR AL USUARIO A LA PÁGINA PRINCIPAL
-    } else {
-      // ! MOSTRAR UN MENSAJE DE ERROR AL USUARIO
-    }
-  });
+  try {
+    fetch("http://localhost:4321/auth/sign-in", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(entries),
+    }).then((response) => {
+      console.log(response);
+      if (response.ok) {
+        window.location.href = "./orders.html";
+      } else {
+        response.json().then((json) => {
+          const { msg, path } = json.errors[0];
+          alert("Error: " + msg + " in " + path);
+        });
+      }
+    });
+  } catch (error) {
+    console.log("Error");
+    window.location.reload();
+  }
 });
