@@ -5,7 +5,6 @@ export const createOrderCtrl = (req, res) => {
   const { coffee } = req.body;
 
   const order = createOrder(coffee, userId);
-
   res.status(201).json(order);
 };
 

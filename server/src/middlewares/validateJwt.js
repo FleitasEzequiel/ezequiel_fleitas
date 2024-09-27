@@ -5,7 +5,6 @@ import jwt from "jsonwebtoken";
 export const validateJwt = async (req, res, next) => {
   // Se obtiene el token de las cookies
   const token = req.body.token;
-  console.log(token);
   // Si no hay token, se responde con un mensaje de error
   if (!token) {
     return res.status(401).json({ message: "Session is required" });
