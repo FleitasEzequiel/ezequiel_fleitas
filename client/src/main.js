@@ -14,7 +14,17 @@ import { services } from "./components/services";
 const $root = document.getElementById("root");
 
 // Realizar una solicitud para obtener la sesión del usuario actual
-await fetch("http://localhost:4321/auth/me", {})
+const token = localStorage.getItem("token");
+fetch("http://localhost:4321/auth/me", {
+  body: JSON.stringify({
+    token,
+  }),
+  method: "POST",
+  headers: {
+    "Content-Type": "Application/JSON",
+  },
+  credentials: "include",
+})
   .then((response) => {
     // Verificar si la respuesta es exitosa
     if (response.ok) {

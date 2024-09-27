@@ -24,12 +24,22 @@ $form.addEventListener("submit", async (e) => {
       body: JSON.stringify(entries),
     }).then((response) => {
       console.log(response);
-      if (response.ok) {
-        window.location.href = "./orders.html";
+      if (response.ok == true) {
+        setTimeout(() => {
+          response.json().then((json) => {
+            console.log(json);
+            localStorage.setItem("token", json.token);
+          });
+          // window.location.href = "/";
+        }, 200);
       } else {
         response.json().then((json) => {
-          const { msg, path } = json.errors[0];
-          alert("Error: " + msg + " in " + path);
+          if (json.errors) {
+            const { msg, path } = json.errors[0];
+            alert("Error: " + msg + " in " + path);
+          } else {
+            alert(json.message);
+          }
         });
       }
     });

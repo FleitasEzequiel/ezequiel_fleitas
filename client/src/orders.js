@@ -10,7 +10,17 @@ import { listOfOrders } from "./components/listOfOrders";
 const $root = document.getElementById("root");
 
 // Realizar una solicitud para obtener la sesión del usuario actual
-await fetch("http://localhost:4321/auth/me", {})
+const token = localStorage.getItem("token");
+await fetch("http://localhost:4321/auth/me", {
+  body: JSON.stringify({
+    token,
+  }),
+  method: "POST",
+  headers: {
+    "Content-Type": "Application/JSON",
+  },
+  credentials: "include",
+})
   .then((response) => {
     // Verificar si la respuesta es exitosa
     if (response.ok) {
@@ -26,7 +36,8 @@ await fetch("http://localhost:4321/auth/me", {})
       // Añadir el componente de orders al elemento raíz
       $root.appendChild(listOfOrders());
     } else {
+      console.log(session);
       // Redirigir al usuario a la página de inicio de sesión
-      window.location.href = "/pages/login";
+      // window.location.href = "/pages/login";
     }
   });

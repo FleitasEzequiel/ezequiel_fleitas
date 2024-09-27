@@ -10,9 +10,7 @@ export const signInCtrl = async (req, res) => {
     }
 
     const token = await createJwt(user.id);
-
-    res.cookie("token", token, { httpOnly: true });
-
+    res.cookie("token", token, { httpOnly: true, secure: false });
     res.status(200).json({ token, user });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -44,6 +42,8 @@ export const signOutCtrl = (_req, res) => {
 };
 
 export const getMeCtrl = (req, res) => {
+  console.log("llegó");
+  console.log(req.cookies);
   try {
     res.status(200).json(req.user);
   } catch (error) {
